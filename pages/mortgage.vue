@@ -127,7 +127,7 @@
               <p>Monthly Mortgage Payment</p>
             </v-col>
             <v-col cols="3" class="text-center">
-              ${{(parseFloat(monthlyPayment) + (this.mortgageData.propertyTax/12) + (this.mortgageData.insurancePayment/12) + this.mortgageData.pmiMonthly + this.mortgageData.hoaMonthly)}}
+              ${{(parseFloat(monthlyPayment) + parseFloat(this.mortgageData.propertyTax/12) + parseFloat(this.mortgageData.insurancePayment/12) + parseFloat(this.mortgageData.pmiMonthly) + parseFloat(this.mortgageData.hoaMonthly))}}
               <hr>
               <p>Total Monthly Payment</p>
             </v-col>
@@ -207,12 +207,14 @@
         let cData = []
         let cLabel = []
         let mData = []
-        const m = ((this.mortgageData.propertyTax/12)+(this.mortgageData.insurancePayment/12)+this.mortgageData.pmiMonthly+this.mortgageData.hoaMonthly)
+        const m = ((this.mortgageData.propertyTax/12)+(this.mortgageData.insurancePayment/12)+parseFloat(this.mortgageData.pmiMonthly)+parseFloat(this.mortgageData.hoaMonthly))
+        let a = 0
         let currentLoan = this.mortgageData.purchasePrice - this.mortgageData.downPayment
         for(var i=0;i<(this.mortgageData.termLength*12);i++) {
 
           cData.push(currentLoan.toFixed(2).toString())
-          mData.push(m)
+          a = a+m
+          mData.push(a)
           cLabel.push(i.toString())
           currentLoan = currentLoan - this.monthlyPayment+(currentLoan*(this.mortgageData.interestRatePercentage))
         }
